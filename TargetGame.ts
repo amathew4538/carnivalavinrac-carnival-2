@@ -1,4 +1,21 @@
-scene.setBackgroundImage(img`
+/**
+* Use this file to define custom functions and blocks.
+* Read more at https://arcade.makecode.com/blocks/custom
+*/
+
+enum TargetEnum {
+    //% block="one"
+    One
+}
+
+/**
+ * Custom blocks
+ */
+//% weight=100 color=#ff2121 icon=""
+namespace targetPractice {
+    //% block
+    export function startTargetGame() {
+        scene.setBackgroundImage(img`
     777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777feeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777ffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
     77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777ffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
@@ -119,8 +136,8 @@ scene.setBackgroundImage(img`
     77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777ffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777ffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
     777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777feeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
-    `)
-let myTarget = sprites.create(img`
+            `)
+        let myTarget = sprites.create(img`
     . b b b . 
     b 2 2 2 b 
     b b b b b 
@@ -141,10 +158,12 @@ let myTarget = sprites.create(img`
     b b b b b 
     b 2 2 2 b 
     . b b b . 
-    `, SpriteKind.Player)
-myTarget.setPosition(137, 40)
-controller.moveSprite(myTarget)
-myTarget.setStayInScreen(true)
-game.onUpdateInterval(0, function () {
-    myTarget.x = 137
-})
+            `, SpriteKind.Player)
+        myTarget.setPosition(137, 40)
+        controller.moveSprite(myTarget)
+        myTarget.setStayInScreen(true)
+        game.onUpdateInterval(0, function () {
+            myTarget.x = 137
+        })
+    }
+}

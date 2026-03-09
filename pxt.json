@@ -15,7 +15,8 @@
         "images.g.ts",
         "BottleStack.ts",
         "CollisionHandler.ts",
-        "TargetGame.ts"
+        "TargetGame.ts",
+        "MoleAWhack.ts"
     ],
     "testFiles": [
         "test.ts"
