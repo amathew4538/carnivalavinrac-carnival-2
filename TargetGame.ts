@@ -1,3 +1,5 @@
+// Coded by Wyatt in Blocks, Converted to JS by Akash
+
 /**
 * Use this file to define custom functions and blocks.
 * Read more at https://arcade.makecode.com/blocks/custom
@@ -14,7 +16,7 @@ enum TargetEnum {
 //% weight=100 color=#ff2121 icon=""
 namespace targetPractice {
     //% block
-    export function startTargetGame() {
+    export function startTargetPractice() {
         scene.setBackgroundImage(img`
     777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777feeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777ffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee

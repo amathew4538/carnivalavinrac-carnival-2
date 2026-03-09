@@ -1,3 +1,5 @@
+// Coded by Ryan and Aiden in Blocks, Converted to JS by Akash
+
 /**
 * Use this file to define custom functions and blocks.
 * Read more at https://arcade.makecode.com/blocks/custom

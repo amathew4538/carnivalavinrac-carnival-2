@@ -1,3 +1,5 @@
+// Extension
+
 namespace CollisionHandler {
 
     export enum PushDirection {
