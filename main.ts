@@ -1,6 +1,4 @@
-/**
- * Coded by Akash in JS
- */
+// Coded by Akash in JS
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (selectorIcon.x == 30) {
         sprites.destroy(selectorIcon)
@@ -42,6 +40,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         selectorIcon.setPosition(130, 60)
     }
 })
+music.play(music.stringPlayable("C5 G E A E B G D ", 120), music.PlaybackMode.LoopingInBackground)
+
 let selectorIcon: Sprite = null
 let bottleStackSelector: Sprite = null
 let targetPracticeSelector: Sprite = null
