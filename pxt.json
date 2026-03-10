@@ -4,7 +4,8 @@
     "dependencies": {
         "device": "*",
         "sprite-scaling": "*",
-        "browser-events": "*"
+        "browser-events": "*",
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0"
     },
     "files": [
         "main.blocks",

@@ -123,6 +123,9 @@ scene.setBackgroundImage(img`
         222222eeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbeee222222
     `)
 
+let welcomeText: TextSprite
+let welcomeText2: TextSprite
+
 let moleAWhackSelector = sprites.create(img`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
@@ -208,7 +211,25 @@ let selectorIcon = sprites.create(img`
     `, SpriteKind.Player)
 scaling.scaleToPercent(selectorIcon, 250, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 
-game.splash("Welcome to Carnivalinrac Carnival! Enjoy!")
+control.runInParallel(function(){
+    welcomeText = textsprite.create("Welcome to Carnivalinrac Carnival!")
+    welcomeText.setPosition(120, 10)
+    welcomeText.vx = -20
+    welcomeText2 = textsprite.create("Welcome to Carnivalinrac Carnival!")
+    welcomeText2.setPosition(330, 10)
+    welcomeText2.vx = -20
+
+    while(true){
+        if (welcomeText.x <= -90){
+            welcomeText.setPosition(330, 10)
+        }
+        if (welcomeText2.x <= -90) {
+            welcomeText2.setPosition(330, 10)
+        }
+
+        pause(100)
+    }
+})
 
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (selectorIcon.x == 130){
@@ -234,6 +255,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         sprites.destroy(moleAWhackSelector)
         sprites.destroy(targetPracticeSelector)
         sprites.destroy(bottleStackSelector)
+        sprites.destroy(welcomeText)
+        sprites.destroy(welcomeText2)
 
         moleAWhack.startMoleAWhack()
     }
@@ -242,6 +265,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         sprites.destroy(moleAWhackSelector)
         sprites.destroy(targetPracticeSelector)
         sprites.destroy(bottleStackSelector)
+        sprites.destroy(welcomeText)
+        sprites.destroy(welcomeText2)
 
         targetPractice.startTargetPractice()
     }
@@ -251,6 +276,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         sprites.destroy(moleAWhackSelector)
         sprites.destroy(targetPracticeSelector)
         sprites.destroy(bottleStackSelector)
+        sprites.destroy(welcomeText)
+        sprites.destroy(welcomeText2)
 
         bottleStack.startBottleStack()
     }

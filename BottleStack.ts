@@ -167,6 +167,18 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         spawnBottle()
         spawnBall()
 
+        controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+            if (currentBottle) currentBottle.x -= 2
+        })
+
+        controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+            if (currentBottle) currentBottle.x += 2
+        })
+
+        controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+            if (currentBottle) currentBottle.y += 2
+        })
+
         control.runInParallel(function() {
             while (info.life() != 0) {
                 pause(1000)
@@ -214,6 +226,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         countdown = 0
                         console.log("Hit!")
                         console.log("Baseball Count: " + baseballCount)
+                        music.ringTone(Note.C)
                     } else if (countdown >= 5) {
                         baseball.destroy()
                         spawnBall()
@@ -304,16 +317,4 @@ f 1 1 2 2 1 1 1 1 1 2 1 1 1 1 f
         baseball.setPosition(Math.randomRange(30, 130), Math.randomRange(30, 100))
         scaling.scaleToPercent(baseball, 100, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     }
-
-    controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-        if (currentBottle) currentBottle.x -= 2
-    })
-
-    controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-        if (currentBottle) currentBottle.x += 2
-    })
-
-    controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-        if (currentBottle) currentBottle.y += 2
-    })
 }

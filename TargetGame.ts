@@ -17,6 +17,17 @@ enum TargetEnum {
 namespace targetPractice {
     //% block
     export function startTargetPractice() {
+        sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
+            info.changeLifeBy(-1)
+            sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
+        })
+        info.onCountdownEnd(function () {
+            game.gameOver(true)
+        })
+        info.onLifeZero(function () {
+            game.gameOver(false)
+        })
+        let projectile: Sprite = null
         scene.setBackgroundImage(img`
     777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777feeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777ffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffeeeeeeeeeeeeeeeeeeeeee
@@ -161,11 +172,57 @@ namespace targetPractice {
     b 2 2 2 b 
     . b b b . 
             `, SpriteKind.Player)
+        let myEnemy = sprites.create(img`
+            ..........fffffff..........
+            .......fffdddddddfff.......
+            ......fdddddddddddddf......
+            ....ffdddddddddddddddff....
+            ...fdddddddddddddddddddf...
+            ...fdddddddddddddddddddf...
+            ..fdddddddddddddddddddddf..
+            .fdddddddddddddddddddddddf.
+            .fdddddddddddddddddddddddf.
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            fdddddddddddddddddddddddddf
+            .fdddddddddddddddddddddddf.
+            .fdddddddddddddddddddddddf.
+            ..fdddddddddddddddddddddf..
+            ...fdddddddddddddddddddf...
+            ....fdddddddddddddddddf....
+            .....fdddddddddddddddf.....
+            ......ffdddddddddddff......
+            ........fffffffffff........
+        `, SpriteKind.Enemy)
         myTarget.setPosition(137, 40)
+        myEnemy.setPosition(32, 49)
+        myEnemy.setVelocity(0, 25)
         controller.moveSprite(myTarget)
         myTarget.setStayInScreen(true)
+        myEnemy.setBounceOnWall(true)
+        let time = randint(1, 100)
+        info.setLife(5)
+        info.startCountdown(45)
+        game.onUpdateInterval(1, function () {
+            time += -1
+            if (time == 0) {
+                projectile = sprites.createProjectileFromSprite(img`
+                    9 9 9 9 9 9
+                `, myEnemy, 100, 0)
+                time = randint(0, 100)
+            }
+        })
         game.onUpdateInterval(0, function () {
             myTarget.x = 137
         })
+
     }
 }
