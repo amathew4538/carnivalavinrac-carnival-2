@@ -5,7 +5,8 @@
         "device": "*",
         "sprite-scaling": "*",
         "browser-events": "*",
-        "arcade-text": "github:microsoft/arcade-text#v1.3.0"
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0",
+        "ArcadeMIDI": "github:unsignedarduino/arcademidi#master"
     },
     "files": [
         "main.blocks",

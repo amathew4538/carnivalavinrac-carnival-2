@@ -200,7 +200,7 @@ namespace targetPractice {
         `, SpriteKind.Enemy)
         myTarget.setPosition(137, 40)
         myEnemy.setPosition(32, 49)
-        myEnemy.setVelocity(0, 25)
+        myEnemy.setVelocity(0, 150)
         controller.moveSprite(myTarget)
         myTarget.setStayInScreen(true)
         myEnemy.setBounceOnWall(true)

@@ -206,7 +206,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
             if (baseball) {
                 if (baseball.scale > 0.5) {
-                    scaling.scaleByPercent(baseball, -1 * bottleCount, ScaleDirection.Uniformly, ScaleAnchor.Middle)
+                    scaling.scaleByPercent(baseball, -3 * bottleCount +0.5, ScaleDirection.Uniformly, ScaleAnchor.Middle)
                 }
 
                 console.log("Baseball Scale: " + baseball.scale)

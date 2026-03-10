@@ -40,12 +40,13 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         selectorIcon.setPosition(130, 60)
     }
 })
-music.play(music.stringPlayable("C5 G E A E B G D ", 120), music.PlaybackMode.LoopingInBackground)
-
 let selectorIcon: Sprite = null
 let bottleStackSelector: Sprite = null
 let targetPracticeSelector: Sprite = null
 let moleAWhackSelector: Sprite = null
+music.play(music.stringPlayable("C5 G E A E B G D ", 120), music.PlaybackMode.LoopingInBackground)
+music.play(music.stringPlayable("C3 - E2 - E3 - G2 ", 120), music.PlaybackMode.LoopingInBackground)
+
 scene.setBackgroundImage(img`
     eeeee2222222222222222222222222222222222ee2222ee2222ee2222222eeeee2222222222222222222222222222222222ee22222eeee222ee2eeeee2222222222222222222222222222222222ee222
     222eeeee22222222222222222222222222222eee2222eeee2222ee222222222eeeee22222222222222222222222222222eee2222eeeee222ee22222eeeee22222222222222222222222222222eee2222
