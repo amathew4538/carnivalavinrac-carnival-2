@@ -19,7 +19,7 @@ namespace targetPractice {
     export function startTargetPractice() {
         sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
             info.changeLifeBy(-1)
-            sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
+            sprites.destroy(sprite)
         })
         info.onCountdownEnd(function () {
             game.gameOver(true)
@@ -209,6 +209,10 @@ namespace targetPractice {
         myTarget.setStayInScreen(true)
         myEnemy.setBounceOnWall(true)
         let time = randint(1, 100)
+
+        game.splash("Use up and down keys")
+        game.splash("Don't get hit by water!")
+
         info.setLife(5)
         info.startCountdown(45)
         game.onUpdateInterval(1, function () {

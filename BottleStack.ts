@@ -164,6 +164,10 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         table.setPosition(80, 114)
         info.setLife(3)
 
+        game.splash("How to play:Use arrow keys")
+        game.splash("Avoid the baseballs!")
+        game.splash("The highest score wins!")
+
         spawnBottle()
         spawnBall()
 
