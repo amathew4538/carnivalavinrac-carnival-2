@@ -5,8 +5,8 @@
 * Read more at https://arcade.makecode.com/blocks/custom
 */
 namespace SpriteKind {
-    export const hammer = SpriteKind.create()
     export const selection = SpriteKind.create()
+    export const hammer = SpriteKind.create()
 }
 
 enum MoleAWhackEnum {
@@ -21,10 +21,19 @@ enum MoleAWhackEnum {
 namespace moleAWhack {
     //% block
     export function startMoleAWhack() {
+        let playing = false
         let Randx = 0
         let randY = 0
+        let gotHit = false
+        let choosehole = false
+        let broken = false
+        let readyToStart = false
+        let y: number[] = []
+        let x: number[] = []
         let selection2: Sprite = null
-        let pplayer = sprites.create(img`
+        let hammer2: Sprite = null
+        let pplayer: Sprite = null
+        pplayer = sprites.create(img`
     . . . . . . . . . . b 5 b . . . 
     . . . . . . . . . b 5 b . . . . 
     . . . . . . b b b b b b . . . . 
@@ -41,8 +50,8 @@ namespace moleAWhack {
     b b c c c d d d 5 5 5 5 5 d b . 
     . . . . c c d d d 5 5 5 b b . . 
     . . . . . . c c c c c b b . . . 
-            `, SpriteKind.Player)
-        let hammer2 = sprites.create(img`
+    `, SpriteKind.Player)
+        hammer2 = sprites.create(img`
     ...................22.............................
     ..................2222............................
     .................2f2222...........................
@@ -93,7 +102,7 @@ namespace moleAWhack {
     ...........................................888888.
     ............................................8888..
     .............................................88...
-            `, SpriteKind.Player)
+    `, SpriteKind.hammer)
         hammer2.setPosition(300, 0)
         selection2 = sprites.create(img`
     55555555555................55555555555
@@ -121,11 +130,13 @@ namespace moleAWhack {
     5555..............................5555
     555555..........................555555
     55555555555................55555555555
-            `, SpriteKind.selection)
+    `, SpriteKind.selection)
         pplayer.setPosition(30, 81)
+        pplayer.setPosition(300, 100)
         selection2.setPosition(28, 83)
-        let x = [48, 98, 148]
-        let y = [84, 52, 20]
+        selection2.setPosition(300, 200)
+        x = [48, 98, 148]
+        y = [84, 52, 20]
         scene.setBackgroundImage(img`
     6666677777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777766666
     6666677777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777766666
@@ -247,20 +258,150 @@ namespace moleAWhack {
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            `)
-        game.onUpdateInterval(2000, function () {
-            randY = randint(0, 2)
-            Randx = randint(0, 2)
-            hammer2.setPosition(x[Randx], y[randY])
+    `)
+        let need_tutorial = true
+        readyToStart = false
+        if (need_tutorial) {
+            game.splash("Reverse Wack-a-mole!")
+            game.splash("Choose a hole. Don't get hit!")
+            game.splash("Press B to select the hole!")
+        }
+        broken = false
+        need_tutorial = false
+        choosehole = true
+        gotHit = false
+        if (choosehole) {
+            selection2.setPosition(28, 83)
+        }
+        animation.runImageAnimation(
+            selection2,
+            [img`
+    55555555555................55555555555
+    555555..........................555555
+    5555..............................5555
+    555................................555
+    55..................................55
+    55..................................55
+    5....................................5
+    5....................................5
+    5....................................5
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    5....................................5
+    5....................................5
+    5....................................5
+    55..................................55
+    55..................................55
+    555................................555
+    5555..............................5555
+    555555..........................555555
+    55555555555................55555555555
+                `, img`
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+    ......................................
+            `],
+            400,
+            true
+        )
+        forever(function () {
+            pause(500)
+            if (!(selection2.x == 300)) {
+                choosehole = true
+            }
         })
         controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
             if (!(selection2.y - 32 < 19)) {
                 selection2.y = selection2.y - 32
             }
         })
+        controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+            if (choosehole) {
+                if (!(hammer2.x == 300) || !(pplayer.x == 300)) {
+                    broken = true
+                }
+                choosehole = false
+                pplayer.setPosition(selection2.x, selection2.y)
+                selection2.setPosition(300, 83)
+                pause(1000)
+                selection2.setPosition(300, 83)
+                pplayer.sayText("I hope I don't get hit", 1000, false)
+                for (let index = 0; index < 5; index++) {
+                    randY = randint(0, 2)
+                    Randx = randint(0, 2)
+                    music.play(music.melodyPlayable(music.knock), music.PlaybackMode.InBackground)
+                    hammer2.setPosition(x[Randx], y[randY])
+                    pause(1000)
+                    playing = false
+                    if (pplayer.x == hammer2.x - 20 && pplayer.y == hammer2.y - 1) {
+                        gotHit = true
+                        music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
+                        break;
+                    }
+                }
+            }
+            pause(500)
+            if (!(gotHit) && !(readyToStart && selection2.x == 300) && !(pplayer.x == 300) && !(pplayer.x == hammer2.x - 20 && pplayer.y == hammer2.y - 1)) {
+                game.splash("You didn't get hit!")
+                music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.InBackground)
+                game.splash("You win!")
+                hammer2.setPosition(300, 0)
+                pplayer.setPosition(300, 100)
+                game.splash("Press A twice to restart!")
+                readyToStart = true
+            }
+        })
+        controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+            if (readyToStart) {
+                readyToStart = false
+                selection2.setPosition(28, 83)
+                choosehole = true
+            }
+        })
         controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
             if (!(selection2.x - 50 < 28)) {
                 selection2.x = selection2.x - 50
+            }
+        })
+        sprites.onOverlap(SpriteKind.hammer, SpriteKind.Player, function (sprite, otherSprite) {
+            pause(100)
+            if (gotHit && !(readyToStart && selection2.x == 300) && !(pplayer.x == 300)) {
+                gotHit = false
+                pplayer.sayText("YOU GOT ME KILLED", 2000, false)
+                pause(1000)
+                game.splash("Uh Oh. You Lost!")
+                music.play(music.melodyPlayable(music.powerDown), music.PlaybackMode.InBackground)
+                pplayer.setPosition(300, 100)
+                hammer2.setPosition(300, 0)
+                game.splash("Press A twice to restart!")
+                readyToStart = true
             }
         })
         controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
