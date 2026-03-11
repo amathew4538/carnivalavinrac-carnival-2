@@ -25,6 +25,7 @@ namespace bottleStack {
 
     //% block
     export function startBottleStack() {
+        // Initialize background objects
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -164,6 +165,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         table.setPosition(80, 114)
         info.setLife(3)
 
+        // How to play splashes
         game.splash("How to play:Use arrow keys")
         game.splash("Avoid the baseballs!")
         game.splash("The highest score wins!")
@@ -171,6 +173,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         spawnBottle()
         spawnBall()
 
+        // Controller events
         controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
             if (currentBottle) currentBottle.x -= 2
         })
@@ -183,6 +186,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             if (currentBottle) currentBottle.y += 2
         })
 
+        // Increases score every second
         control.runInParallel(function() {
             while (info.life() != 0) {
                 pause(1000)
@@ -193,6 +197,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         })
 
         game.onUpdateInterval(speed, function () {
+            // Moves the bottle at specific speeds
             if (currentBottle) {
                 if (bottleCount == 0) {
                     currentBottle.y += (1/8)
@@ -203,7 +208,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             }
 
 
-
+            // Checks if the ball is colliding with anything
             if (baseball) {
                 if (baseball.scale > 0.5) {
                     scaling.scaleByPercent(baseball, -3 * bottleCount +0.5, ScaleDirection.Uniformly, ScaleAnchor.Middle)
@@ -242,6 +247,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             }
         })
 
+        // Stops the bottles if it touches other ones
         sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
             spawnNewBottle(sprite)
             bottleCount++
@@ -257,6 +263,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         })
     }
 
+    // Spawns new bottles after one stops
     export function spawnNewBottle(bottle: Sprite) {
         bottle.vy = 0
         bottle.setKind(SpriteKind.Food)
@@ -264,6 +271,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         spawnBottle()
     }
 
+    // Spawns a bottle
     export function spawnBottle() {
         let random_number = Math.randomRange(1, 10)
         if (random_number <= 5) {
@@ -298,6 +306,7 @@ f f f 8 8 8 8 8 8 8 8 8 8 8 8 f
         currentBottle.setPosition(80, 10)
     }
 
+    // Spawns a baseball
     export function spawnBall() {
         baseball = sprites.create(img`
 . . . . f f f f f f f f . . . . 
